@@ -20,6 +20,8 @@ AMARELO = (237, 255, 0)
 VERDE = (38, 255, 0)
 VERMELHO = (255, 0, 0)
 
+COR_FUNDO = (0, 30, 95)
+
 tamanho_fonte = 50
 fonte = pygame.font.SysFont(None,  tamanho_fonte)
 
@@ -75,16 +77,17 @@ while True:
     texto_rect.x += velocidade_x
     texto_rect.y += velocidade_y
 
+    # Lado Direito (x): 
     if  texto_rect.right >= largura:
         velocidade_x = random.randint(-1, 1)
         velocidade_y = random.randint(-1, 1)
-        v_x = velocidade_x
+        v_x = velocidade_x 
         v_y = velocidade_y
 
-        while velocidade_x == 0 or v_x == velocidade_x:
+        while velocidade_x == 1 and v_x == velocidade_x:
             velocidade_x = random.randint(-1, 1)
 
-        while velocidade_y == 0 or v_y == velocidade_y:
+        while velocidade_y == 0 and v_y == velocidade_y:
             velocidade_y = random.randint(-1, 1)
 
         r = random.randint(0, 255)
@@ -93,19 +96,27 @@ while True:
 
         COR = (r, g, b)
 
+        if COR == COR_FUNDO:
+            r = random.randint(0, 255)
+            g = random.randint(0, 255)
+            b = random.randint(0, 255)
+
+            COR = (r, g, b)
+
         texto = fonte.render("DVD", True, COR)
 
 
+    # Lado Esquerdo (x): 
     if texto_rect.left <= 0:
         velocidade_x = random.randint(-1, 1)
         velocidade_y = random.randint(-1, 1)
         v_x = velocidade_x
         v_y = velocidade_y
 
-        while velocidade_x == 0 or v_x == velocidade_x:
+        while velocidade_x == -1 and v_x == velocidade_x:
             velocidade_x = random.randint(-1, 1)
 
-        while velocidade_y == 0 or v_y == velocidade_y:
+        while velocidade_y == 0 and v_y == velocidade_y:
             velocidade_y = random.randint(-1, 1)
 
         r = random.randint(0, 255)
@@ -114,19 +125,26 @@ while True:
 
         COR = (r, g, b)
 
+        if COR == COR_FUNDO:
+            r = random.randint(0, 255)
+            g = random.randint(0, 255)
+            b = random.randint(0, 255)
+
+            COR = (r, g, b)
+
         texto = fonte.render("DVD", True, COR)
 
-
+    # Lado Superior (y): 
     if texto_rect.top >= altura:
         velocidade_x = random.randint(-1, 1)
         velocidade_y = random.randint(-1, 1)
         v_x = velocidade_x
         v_y = velocidade_y
 
-        while velocidade_x == 0 or v_x == velocidade_x:
+        while velocidade_x == 0 and v_x == velocidade_x:
             velocidade_x = random.randint(-1, 1)
 
-        while velocidade_y == 0 or v_y == velocidade_y:
+        while velocidade_y == 1 and v_y == velocidade_y:
             velocidade_y = random.randint(-1, 1)
 
         r = random.randint(0, 255)
@@ -135,19 +153,26 @@ while True:
 
         COR = (r, g, b)
 
+        if COR == COR_FUNDO:
+            r = random.randint(0, 255)
+            g = random.randint(0, 255)
+            b = random.randint(0, 255)
+
+            COR = (r, g, b)
+            
         texto = fonte.render("DVD", True, COR)
 
-
+    # Lado Inferior (y):
     if texto_rect.bottom <= 0:
         velocidade_x = random.randint(-1, 1)
         velocidade_y = random.randint(-1, 1)
         v_x = velocidade_x
         v_y = velocidade_y
 
-        while velocidade_x == 0 or v_x == velocidade_x:
+        while velocidade_x == 0 and v_x == velocidade_x:
             velocidade_x = random.randint(-1, 1)
 
-        while velocidade_y == 0 or v_y == velocidade_y:
+        while velocidade_y == -1 and v_y == velocidade_y:
             velocidade_y = random.randint(-1, 1)
 
         r = random.randint(0, 255)
@@ -155,10 +180,17 @@ while True:
         b = random.randint(0, 255)
 
         COR = (r, g, b)
+        
+        if COR == COR_FUNDO:
+            r = random.randint(0, 255)
+            g = random.randint(0, 255)
+            b = random.randint(0, 255)
 
+            COR = (r, g, b)
+            
         texto = fonte.render("DVD", True, COR)
     
-    clock.tick(200)
-    tela.fill(AZUL_ESCURO)
+    clock.tick(250)
+    tela.fill(COR_FUNDO)
     tela.blit(texto, texto_rect)
     pygame.display.flip()
