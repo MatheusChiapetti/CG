@@ -36,13 +36,13 @@ class MovendoTexto:
             self.change_color()
             
         # Lado Inferior:
-        if self.rect.bottom <= 0:
+        if self.rect.bottom >= self.altura:
             self.velocidade_x = random.randint(-1, 1)
             self.velocidade_y = random.randint(-1, 0)
             self.change_color()
             
         # Lado Superior:
-        if self.rect.top >= self.altura: 
+        if self.rect.top <= 0: 
             self.velocidade_x = random.randint(-1, 1)
             self.velocidade_y = random.randint(0, 1)
             self.change_color()
