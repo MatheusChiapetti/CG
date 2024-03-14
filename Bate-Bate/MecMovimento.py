@@ -5,11 +5,11 @@ import random
 
 class MovendoTexto:
     # Função para construir a classe 'MovendoTexto'.
-    def __init__(self, texto, fonte_tamanho, largura, altura):
-        self.font = pygame.font.SysFont(None, fonte_tamanho)
-        self.texto = texto
-        self.largura = largura
-        self.altura = altura
+    def __init__(self, texto, fonte_tamanho, largura, altura): # Os atributos da classe são: self, texto, fonte_tamanho, largura e altura. 
+        self.font = pygame.font.SysFont(None, fonte_tamanho) # Atribui à fonte o tamanho informado pelo usuário.
+        self.texto = texto # Atribui o texto informado pelo usuário.
+        self.largura = largura # Atribui à tela a largura informada pelo usuário.
+        self.altura = altura # Atribui à tela a altura informada pelo usuário.
         self.texto_surf = self.font.render(texto, True, (255, 255, 255))
         self.rect = self.texto_surf.get_rect(center=(largura/2, altura/2))
         
