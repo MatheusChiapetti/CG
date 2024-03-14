@@ -70,6 +70,6 @@ class MovendoTexto:
                 
         self.texto_surf = self.font.render(self.texto, True, cor_texto)
         
-    # A função 
+    # A função draw serve para desenhar o objeto na tela. 
     def draw(self, tela):
         tela.blit(self.texto_surf, self.rect) # # A função 'blit' atualiza (desenha) a variável. 
