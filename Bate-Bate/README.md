@@ -1,4 +1,4 @@
-Projeto 'Bate-Bate'.
+<h1>Projeto 'Bate-Bate'.</h1>
 
 Código em python orientado a objetos, com três classes, que realiza uma ação semelhante ao logo do DVD batendo nos cantos da tela. 
 
