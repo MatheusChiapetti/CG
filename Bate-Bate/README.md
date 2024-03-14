@@ -7,6 +7,7 @@ Abaixo, a imagem demonstra o diagrama UML das classes do projeto 'Bate-Bate'. Na
 ![image](https://github.com/MatheusChiapetti/CG/assets/110207330/5647675b-2946-48da-a2a5-8f1f2081c57d)
 
 <h3>Classe 'MovendoTexto':</h3>
+
 - Os atributos da classe 'MovendoTexto' são: self, texto, fonte_tamanho, largura e altura.
 
 - A classe 'MovendoTexto' apresenta os seguintes métodos:
