@@ -18,6 +18,7 @@ Abaixo, a imagem demonstra o diagrama UML das classes do projeto 'Bate-Bate'. Na
   - draw: o método serve para desenhar o objeto na tela, levando-se em conta as mudanças e atualizações feitas pelos outros métodos da classe. 
 
 <h3>Classe 'Game':</h3>
+
 - Os atributos da classe 'Game' são os mesmos da classe 'MovendoTexto', devido à relação de hierarquia da orientação à objetos que foi aplicada ao projeto.
 
 - A classe 'Game' apresenta os seguintes métodos:
