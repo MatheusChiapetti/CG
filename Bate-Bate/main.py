@@ -3,6 +3,6 @@ from Game import Game
 
 # O método abaixo executa o jogo criando um objeto do tipo (classe) Game.
 if __name__ == '__main__':
-    game = Game()
+    game = Game() # Cria um objeto do tipo da classe 'Game' - Instanciar.
     game.run()
 

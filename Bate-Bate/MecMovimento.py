@@ -10,8 +10,8 @@ class MovendoTexto:
         self.texto = texto # Atribui o texto informado pelo usuário.
         self.largura = largura # Atribui à tela a largura informada pelo usuário.
         self.altura = altura # Atribui à tela a altura informada pelo usuário.
-        self.texto_surf = self.font.render(texto, True, (255, 255, 255))
-        self.rect = self.texto_surf.get_rect(center=(largura/2, altura/2))
+        self.texto_surf = self.font.render(texto, True, (255, 255, 255)) # Determina a cor do objeto (texto).
+        self.rect = self.texto_surf.get_rect(center=(largura/2, altura/2)) # Determina o tamanho do objeto (texto).
         
         self.velocidade_x = self.gerar_numero_nao_zero()
         self.velocidade_y = self.gerar_numero_nao_zero()
@@ -25,7 +25,7 @@ class MovendoTexto:
             numero = random.randint(-1, 1)
         return numero
     
-    def move(self):
+    def move(self): # Função usada para mover o objeto.
         # Abaixo, soma-se +1 aos valores das velocidades do objeto nos eixos x e y.
         self.rect.x += self.velocidade_x
         self.rect.y += self.velocidade_y
