@@ -1,4 +1,6 @@
 import pygame
+from pygame import mixer
+import random
 import sys
 
 pygame.init()
@@ -15,6 +17,7 @@ pygame.display.set_caption("Pong")
 # Definição da Raquete
 raquete_largura = 10
 raquete_altura = 60
+
 tamanho_bola = 10
 
 # Velocidade da raquete
@@ -33,11 +36,16 @@ controle = False
 rodando = True
 
 # Configuração da fonte
-font_file = "font/PressStart2P-Regular.ttf"
+font_file = "C:/Users/mhenr/Documents/CG/Pong/font/PressStart2P-Regular.ttf"
 font = pygame.font.Font(font_file, 36)
 
-clock = pygame.time.Clock()
+# Definir sons
+mixer.music.load("C:/Users/mhenr/Documents/CG/Pong/audios/music_game.mp3") # Carregar a música.
+mixer.music.play(-1) # Rodar a música em loop.  
+mixer.music.set_volume(0.5) # Reduzir o volume do som.
+som = mixer.Sound("C:/Users/mhenr/Documents/CG/Pong/audios/Sound_A.wav") # Som quando a bolinha bate na raquete.
 
+clock = pygame.time.Clock()
 
 def menu_principal():
     global rodando, controle
@@ -67,7 +75,6 @@ def menu_principal():
         clock.tick(1)
         pygame.display.flip()
 
-
 def posicao_inicial():
     global pc_x, pc_y, player_1_x, player_1_y, bola_x, bola_y, score_pc, score_player_1
 
@@ -86,7 +93,6 @@ def posicao_inicial():
     # Define o Score
     score_player_1 = 0
     score_pc = 0
-
 
 def fim_jogo():
     global rodando, vencedor, controle
@@ -108,7 +114,6 @@ def fim_jogo():
         screen.blit(texto_fim, text_fim_rect)
 
         pygame.display.flip()
-
 
 menu_principal()
 posicao_inicial()
@@ -135,9 +140,8 @@ while rodando:
         )
 
         # Colisão da bola com a raquete do pc e a raquete do player
-        if bola_rect.colliderect(raquete_pc_rect) or bola_rect.colliderect(
-            raquete_player_1_rect
-        ):
+        if bola_rect.colliderect(raquete_pc_rect) or bola_rect.colliderect(raquete_player_1_rect):
+            som.play()
             velocidade_bola_x = -velocidade_bola_x
 
         # Colisão da bola com as bordas da tela
@@ -181,21 +185,15 @@ while rodando:
 
         # Mostrando Score no jogo
         fonte_score = pygame.font.Font(font_file, 16)
-        score_texto = fonte_score.render(
-            f"Score PC: {score_pc}       Score Player_1: {score_player_1}", True, BRANCO
-        )
+        score_texto = fonte_score.render(f"Score PC: {score_pc}       Score Player_1: {score_player_1}", True, BRANCO)
         score_rect = score_texto.get_rect(center=(largura // 2, 30))
 
         screen.blit(score_texto, score_rect)
 
         # assets (objetos)
         pygame.draw.rect(screen, BRANCO, (pc_x, pc_y, raquete_largura, raquete_altura))
-        pygame.draw.rect(
-            screen, BRANCO, (player_1_x, player_1_y, raquete_largura, raquete_altura)
-        )
-        pygame.draw.ellipse(
-            screen, BRANCO, (bola_x, bola_y, tamanho_bola, tamanho_bola)
-        )
+        pygame.draw.rect(screen, BRANCO, (player_1_x, player_1_y, raquete_largura, raquete_altura))
+        pygame.draw.ellipse(screen, BRANCO, (bola_x, bola_y, tamanho_bola, tamanho_bola))
         pygame.draw.aaline(screen, BRANCO, (largura // 2, 0), (largura // 2, altura))
 
         # Controle Teclado do Player_1
