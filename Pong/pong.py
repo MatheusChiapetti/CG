@@ -2,31 +2,20 @@ import pygame
 from pygame import mixer
 import random
 import sys
+from Racket import Racket as racket
+from Ball import Ball as ball 
 
 pygame.init()
 
 PRETO = (0, 0, 0)
 BRANCO = (255, 255, 255)
+NOVA_COR = (255, 255, 255)
 
 largura = 800
 altura = 600
 
 screen = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption("Pong")
-
-# Definição da Raquete
-raquete_largura = 10
-raquete_altura = 60
-
-tamanho_bola = 10
-
-# Velocidade da raquete
-raquete_player_1_dy = 5
-raquete_pc_dy = 5
-
-# velocidade da bola
-velocidade_bola_x = 3
-velocidade_bola_y = 3
 
 # Definir Vencedor
 vencedor = ""
@@ -80,15 +69,15 @@ def posicao_inicial():
 
     # Posição da Raquete do pc
     pc_x = 10
-    pc_y = altura // 2 - raquete_altura // 2
+    pc_y = altura // 2 - racket.raquete_altura // 2
 
     # Posição da Raquete do player
     player_1_x = largura - 20
-    player_1_y = altura // 2 - raquete_altura // 2
+    player_1_y = altura // 2 - racket.raquete_altura // 2
 
     # Posição da bola
-    bola_x = largura // 2 - tamanho_bola // 2
-    bola_y = altura // 2 - tamanho_bola // 2
+    bola_x = largura // 2 - ball.tamanho_bola // 2
+    bola_y = altura // 2 - ball.tamanho_bola // 2
 
     # Define o Score
     score_player_1 = 0
@@ -129,42 +118,44 @@ while rodando:
         screen.fill(PRETO)
 
         # Movendo a bola
-        bola_x += velocidade_bola_x
-        bola_y += velocidade_bola_y
+        bola_x += ball.velocidade_bola_x
+        bola_y += ball.velocidade_bola_y
 
         # Retângulos de Colisão
-        bola_rect = pygame.Rect(bola_x, bola_y, tamanho_bola, tamanho_bola)
-        raquete_pc_rect = pygame.Rect(pc_x, pc_y, raquete_largura, raquete_altura)
+        bola_rect = pygame.Rect(bola_x, bola_y, ball.tamanho_bola, ball.tamanho_bola)
+        raquete_pc_rect = pygame.Rect(pc_x, pc_y, racket.raquete_largura, racket.raquete_altura)
         raquete_player_1_rect = pygame.Rect(
-            player_1_x, player_1_y, raquete_largura, raquete_altura
+            player_1_x, player_1_y, racket.raquete_largura, racket.raquete_altura
         )
 
         # Colisão da bola com a raquete do pc e a raquete do player
         if bola_rect.colliderect(raquete_pc_rect) or bola_rect.colliderect(raquete_player_1_rect):
             som.play()
-            velocidade_bola_x = -velocidade_bola_x
+            ball.velocidade_bola_x = -ball.velocidade_bola_x
 
         # Colisão da bola com as bordas da tela
-        if bola_y <= 0 or bola_y >= altura - tamanho_bola:
-            velocidade_bola_y = -velocidade_bola_y
+        if bola_y <= 0 or bola_y >= altura - ball.tamanho_bola:
+            ball.velocidade_bola_y = -ball.velocidade_bola_y
 
         # Posicionar a bola no inicio do jogo
         if bola_x <= 0:
-            bola_x = largura // 2 - tamanho_bola // 2
-            bola_y = altura // 2 - tamanho_bola // 2
+            bola_x = largura // 2 - ball.tamanho_bola // 2
+            bola_y = altura // 2 - ball.tamanho_bola // 2
             velocidade_bola_x = -velocidade_bola_x
             score_player_1 += 1
             print(f"Score Player_1: {score_player_1}")
+            NOVA_COR = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             if score_player_1 == 5:
                 print("Player_1 ganhou!")
                 vencedor = "Player 1"
                 fim_jogo()
 
-        if bola_x >= largura - tamanho_bola:
-            bola_x = largura // 2 - tamanho_bola // 2
-            bola_y = altura // 2 - tamanho_bola // 2
-            velocidade_bola_x = -velocidade_bola_x
+        if bola_x >= largura - ball.tamanho_bola:
+            bola_x = largura // 2 - ball.tamanho_bola // 2
+            bola_y = altura // 2 - ball.tamanho_bola // 2
+            ball.velocidade_bola_x = -ball.velocidade_bola_x
             score_pc += 1
+            NOVA_COR = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             print(f"Score PC: {score_pc}")
             if score_pc == 5:
                 print("PC ganhou!")
@@ -172,16 +163,16 @@ while rodando:
                 fim_jogo()
 
         # Movendo a raquete do pc pra seguir a bola
-        if pc_y + raquete_altura // 2 < bola_y:
-            pc_y += raquete_pc_dy
-        elif pc_y + raquete_altura // 2 > bola_y:
-            pc_y -= raquete_pc_dy
+        if pc_y + racket.raquete_altura // 2 < bola_y:
+            pc_y += racket.raquete_pc_dy
+        elif pc_y + racket.raquete_altura // 2 > bola_y:
+            pc_y -= racket.raquete_pc_dy
 
         # Evitar que a raquete do pc saia da área
         if pc_y < 0:
             pc_y = 0
-        elif pc_y > altura - raquete_altura:
-            pc_y = altura - raquete_altura
+        elif pc_y > altura - racket.raquete_altura:
+            pc_y = altura - racket.raquete_altura
 
         # Mostrando Score no jogo
         fonte_score = pygame.font.Font(font_file, 16)
@@ -191,17 +182,17 @@ while rodando:
         screen.blit(score_texto, score_rect)
 
         # assets (objetos)
-        pygame.draw.rect(screen, BRANCO, (pc_x, pc_y, raquete_largura, raquete_altura))
-        pygame.draw.rect(screen, BRANCO, (player_1_x, player_1_y, raquete_largura, raquete_altura))
-        pygame.draw.ellipse(screen, BRANCO, (bola_x, bola_y, tamanho_bola, tamanho_bola))
+        pygame.draw.rect(screen, BRANCO, (pc_x, pc_y, racket.raquete_largura, racket.raquete_altura))
+        pygame.draw.rect(screen, BRANCO, (player_1_x, player_1_y, racket.raquete_largura, racket.raquete_altura))
+        pygame.draw.ellipse(screen, NOVA_COR, (bola_x, bola_y, ball.tamanho_bola, ball.tamanho_bola))
         pygame.draw.aaline(screen, BRANCO, (largura // 2, 0), (largura // 2, altura))
 
         # Controle Teclado do Player_1
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP] and player_1_y > 0:
-            player_1_y -= raquete_player_1_dy
-        if keys[pygame.K_DOWN] and player_1_y < altura - raquete_altura:
-            player_1_y += raquete_player_1_dy
+            player_1_y -= racket.raquete_player_1_dy
+        if keys[pygame.K_DOWN] and player_1_y < altura - racket.raquete_altura:
+            player_1_y += racket.raquete_player_1_dy
 
         pygame.display.flip()
 
