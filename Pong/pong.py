@@ -141,9 +141,10 @@ while rodando:
         if bola_x <= 0:
             bola_x = largura // 2 - ball.tamanho_bola // 2
             bola_y = altura // 2 - ball.tamanho_bola // 2
-            velocidade_bola_x = -velocidade_bola_x
+            ball.velocidade_bola_x = -ball.velocidade_bola_x
             score_player_1 += 1
             print(f"Score Player_1: {score_player_1}")
+            # Sortear uma nova cor para a bola.
             NOVA_COR = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             if score_player_1 == 5:
                 print("Player_1 ganhou!")
@@ -155,6 +156,7 @@ while rodando:
             bola_y = altura // 2 - ball.tamanho_bola // 2
             ball.velocidade_bola_x = -ball.velocidade_bola_x
             score_pc += 1
+            # Sortear uma nova cor para a bola.
             NOVA_COR = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             print(f"Score PC: {score_pc}")
             if score_pc == 5:
